@@ -24,7 +24,7 @@
 
 ## Результаты
 
-Все пять запусков содержат по 25 эпох. Значения `val` получены при общем пороге 0.5. Для исходной ResNet18 U-Net сохранён `best.pt` эпохи 23, для варианта с долей дефектных снимков 25% и меньшим learning rate — эпохи 10. Для каждого из этих двух checkpoint порог 0.7 выбран на `val` из сетки 0.3–0.7; при нём получены приведённые ниже показатели `test`. Исходная модель доступна в Release `v1.0.0`, новый checkpoint пока только локально. Подробности исходных трёх запусков — в [отчёте](reports/model_comparison.md).
+Все пять запусков содержат по 25 эпох. Значения `val` получены при общем пороге 0.5. Для исходной ResNet18 U-Net сохранён `best.pt` эпохи 23, для варианта с долей дефектных снимков 25% и меньшим learning rate — эпохи 10. Для каждого из этих двух checkpoint порог 0.7 выбран на `val` из сетки 0.3–0.7; при нём получены приведённые ниже показатели `test`. Исходная модель доступна в Release `v1.0.0`, улучшенный вариант — в `v1.1.0`. Подробности исходных трёх запусков — в [отчёте](reports/model_comparison.md).
 
 | Конфигурация | Loss | Val IoU | Val Dice | Test IoU | Test Dice |
 | --- | --- | --- | --- | --- | --- |
@@ -32,7 +32,7 @@
 | U-Net | BCE + Dice | 0.408 | 0.579 | — | — |
 | ResNet18 U-Net · исходная, `v1.0.0` | BCE + Dice | 0.499 | 0.666 | 0.488 | 0.656 |
 | ResNet18 U-Net · баланс 25%, LR 0.0003 | BCE + Dice | 0.560 | 0.718 | — | — |
-| ResNet18 U-Net · баланс 25%, LR 0.0001 | BCE + Dice | **0.617** | **0.763** | 0.605 | 0.754 |
+| ResNet18 U-Net · баланс 25%, LR 0.0001, `v1.1.0` | BCE + Dice | **0.617** | **0.763** | 0.605 | 0.754 |
 
 Новый результат на `test` описательный: этот набор уже просматривался при анализе исходной модели. Он не является независимым подтверждением улучшения после выбора новых конфигураций на той же `val`.
 
@@ -88,16 +88,16 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Для обучения и оценки нужен датасет из раздела «Данные». Для предсказания на своём изображении можно скачать [опубликованный checkpoint исходной ResNet18 U-Net](https://github.com/bxckwood/surface-defect-segmentation/releases/download/v1.0.0/best.pt). Он отличается от нового варианта с балансом 25% и LR 0.0001, чей checkpoint пока доступен только после собственного обучения. Сохраните опубликованный файл по пути `runs/resnet18_unet/best.pt`:
+Для обучения и оценки нужен датасет из раздела «Данные». Для предсказания на своём изображении скачайте [checkpoint варианта с балансом 25% и LR 0.0001](https://github.com/bxckwood/surface-defect-segmentation/releases/download/v1.1.0/best.pt) и сохраните его по пути `runs/resnet18_unet_balanced_low_lr/best.pt`:
 
 ```powershell
-New-Item -ItemType Directory -Force runs/resnet18_unet | Out-Null
-Invoke-WebRequest 'https://github.com/bxckwood/surface-defect-segmentation/releases/download/v1.0.0/best.pt' -OutFile runs/resnet18_unet/best.pt
+New-Item -ItemType Directory -Force runs/resnet18_unet_balanced_low_lr | Out-Null
+Invoke-WebRequest 'https://github.com/bxckwood/surface-defect-segmentation/releases/download/v1.1.0/best.pt' -OutFile runs/resnet18_unet_balanced_low_lr/best.pt
 ```
 
-SHA-256 опубликованного `best.pt`: `c3f10401d7abcc6a89958ce0c784a8fe3b5db5c16f60db6c2f3cdbaff3fc8571`.
+SHA-256 checkpoint `v1.1.0`: `eacba4bad25f841ca152d622a60aa957c101d3fb8c83964cd03228212188595e`.
 
-Для собственного обучения используйте пустую папку `output_dir` из соответствующего YAML. Если в `runs/resnet18_unet/` уже лежит скачанный checkpoint, задайте в YAML другой `output_dir`: запуск в занятую папку остановится, защищая файл от перезаписи. При первом обучении ResNet18 загрузка предобученных весов может потребовать интернет. Команды обучения:
+Для собственного обучения используйте пустую папку `output_dir` из соответствующего YAML. Если в ней уже лежит скачанный checkpoint, задайте другой `output_dir`: запуск в занятую папку остановится, защищая файл от перезаписи. При первом обучении ResNet18 загрузка предобученных весов может потребовать интернет. Команды обучения:
 
 ```powershell
 .\.venv\Scripts\python.exe -m src.train --config configs/unet_bce.yaml
@@ -115,7 +115,14 @@ SHA-256 опубликованного `best.pt`: `c3f10401d7abcc6a89958ce0c784a
 
 После каждой эпохи сохраняется `runs/<эксперимент>/last.pt`; `best.pt` обновляется при улучшении validation IoU. Для `--resume` нужны `best.pt` и история обучения. Из `last.pt` и `best.pt` выбирается файл с наибольшей эпохой; восстанавливаются веса, состояние AdamW и номер эпохи, сверяются конфиг и история. Если история содержит более поздние эпохи, перед её обрезкой сохраняется копия `history_before_resume.csv`. Состояния генераторов случайных чисел не сохраняются, поэтому порядок батчей и аугментации после возобновления могут отличаться. `epochs` в YAML означает общее число эпох; для продолжения сверх него увеличьте это значение. Запуск без `--resume` при уже существующей истории или checkpoint остановится, чтобы не затереть результат.
 
-После обучения всех трёх моделей сравните их на `val` при общем пороге 0.5. Веса двух обычных U-Net не опубликованы: эти команды требуют их локальных `best.pt`. Если меняли `output_dir`, подставьте соответствующий путь к `best.pt`. Порог выбранной модели подбирайте только на `val`; отдельный файл сохранит исходные метрики сравнения:
+После обучения всех трёх исходных моделей сравните их на `val` при общем пороге 0.5. Веса двух обычных U-Net не опубликованы: эти команды требуют их локальных `best.pt`. Исходный checkpoint ResNet18 U-Net можно скачать из [Release `v1.0.0`](https://github.com/bxckwood/surface-defect-segmentation/releases/download/v1.0.0/best.pt) в `runs/resnet18_unet/best.pt`; его SHA-256: `c3f10401d7abcc6a89958ce0c784a8fe3b5db5c16f60db6c2f3cdbaff3fc8571`.
+
+```powershell
+New-Item -ItemType Directory -Force runs/resnet18_unet | Out-Null
+Invoke-WebRequest 'https://github.com/bxckwood/surface-defect-segmentation/releases/download/v1.0.0/best.pt' -OutFile runs/resnet18_unet/best.pt
+```
+
+Если меняли `output_dir`, подставьте соответствующий путь к `best.pt`. Порог выбранной модели подбирайте только на `val`; отдельный файл сохранит исходные метрики сравнения:
 
 ```powershell
 .\.venv\Scripts\python.exe -m src.evaluate --checkpoint runs/unet_bce/best.pt --split val
@@ -133,10 +140,10 @@ $threshold = 0.7
 .\.venv\Scripts\python.exe -m src.evaluate --checkpoint $checkpoint --split test --threshold $threshold --examples-dir runs/test_examples
 ```
 
-Для нового изображения и локального demo с опубликованной исходной моделью используйте её checkpoint и выбранный на `val` порог:
+Для нового изображения и локального demo с улучшенной моделью используйте checkpoint `v1.1.0` и выбранный на `val` порог:
 
 ```powershell
-$checkpoint = "runs/resnet18_unet/best.pt"
+$checkpoint = "runs/resnet18_unet_balanced_low_lr/best.pt"
 $threshold = 0.7
 .\.venv\Scripts\python.exe -m src.predict --checkpoint $checkpoint --image path/to/image.png --output-dir runs/prediction --threshold $threshold
 .\.venv\Scripts\python.exe app.py --checkpoint $checkpoint --threshold $threshold
@@ -160,9 +167,9 @@ $threshold = 0.7
 
 При переборе порогов 0.3–0.7 только на `val` вариант с меньшим learning rate получил лучший IoU при 0.7: **0.6287**, Dice **0.7721**, 33 ложные тревоги из 417 и 2 пропуска из 49. У варианта с learning rate 0.0003 при том же пороге IoU 0.5667, 17 ложных тревог и 5 пропусков.
 
-Для первого варианта сохранены [история](reports/histories/resnet18_unet_balanced.csv), [метрики при 0.5](reports/resnet18_unet_balanced_val_05.json) и [поиск порога](reports/resnet18_unet_balanced_val_threshold_search.json). Для варианта с меньшим learning rate — [история](reports/histories/resnet18_unet_balanced_low_lr.csv), [метрики при 0.5](reports/resnet18_unet_balanced_low_lr_val_05.json), [поиск порога](reports/resnet18_unet_balanced_low_lr_val_threshold_search.json) и [оценка на test при 0.7](reports/resnet18_unet_balanced_low_lr_test_07.json). Оба новых checkpoint пока хранятся только локально в `runs/`; опубликованный `v1.0.0/best.pt` — исходная модель.
+Для первого варианта сохранены [история](reports/histories/resnet18_unet_balanced.csv), [метрики при 0.5](reports/resnet18_unet_balanced_val_05.json) и [поиск порога](reports/resnet18_unet_balanced_val_threshold_search.json). Для варианта с меньшим learning rate — [история](reports/histories/resnet18_unet_balanced_low_lr.csv), [метрики при 0.5](reports/resnet18_unet_balanced_low_lr_val_05.json), [поиск порога](reports/resnet18_unet_balanced_low_lr_val_threshold_search.json) и [оценка на test при 0.7](reports/resnet18_unet_balanced_low_lr_test_07.json). Checkpoint первого варианта хранится локально; второй опубликован в `v1.1.0`, а `v1.0.0/best.pt` остаётся исходной моделью.
 
-Для повторного обучения нужен пустой `output_dir` в YAML. Команды для варианта с меньшим learning rate:
+Для повторного обучения нужен пустой `output_dir` в YAML. Если скачали туда `v1.1.0/best.pt`, укажите другой каталог. Команды для варианта с меньшим learning rate:
 
 ```powershell
 .\.venv\Scripts\python.exe -m src.train --config configs/resnet18_unet_balanced_low_lr.yaml
@@ -179,4 +186,4 @@ $threshold = 0.7
 
 ## Ограничения
 
-Фиксированный resize меняет масштаб дефектов. Один split и один seed не показывают разброс между запусками. Эксперимент с ResNet18 одновременно меняет архитектуру encoder и инициализацию, поэтому сравнение не доказывает, что улучшение вызвано конкретно предобучением. Для обеих оценённых на `test` моделей порог 0.7 выбран только из небольшой сетки порогов на этой validation выборке. Повторный выбор конфигурации и порога на той же `val` может завысить оценку нового варианта; ранее просмотренный `test` не служит независимой проверкой улучшения. В Release `v1.0.0` опубликован только исходный checkpoint.
+Фиксированный resize меняет масштаб дефектов. Один split и один seed не показывают разброс между запусками. Эксперимент с ResNet18 одновременно меняет архитектуру encoder и инициализацию, поэтому сравнение не доказывает, что улучшение вызвано конкретно предобучением. Для обеих оценённых на `test` моделей порог 0.7 выбран только из небольшой сетки порогов на этой validation выборке. Повторный выбор конфигурации и порога на той же `val` может завысить оценку нового варианта; ранее просмотренный `test` не служит независимой проверкой улучшения. Release `v1.0.0` содержит исходный checkpoint, `v1.1.0` — улучшенный вариант.
