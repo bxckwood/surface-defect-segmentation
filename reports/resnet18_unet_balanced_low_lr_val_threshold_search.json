@@ -1,0 +1,33 @@
+{
+  "checkpoint": "runs\\resnet18_unet_balanced_low_lr\\best.pt",
+  "model": "resnet18_unet",
+  "loss_name": "bce_dice",
+  "split": "val",
+  "loss": 0.3497155989748086,
+  "threshold": 0.7,
+  "metrics": {
+    "image_count": 466,
+    "pixel_tp": 140669,
+    "pixel_fp": 51646,
+    "pixel_fn": 31417,
+    "foreground_iou": 0.6287388482648884,
+    "foreground_dice": 0.7720560591216818,
+    "positive_image_mean_iou": 0.5595624945601638,
+    "positive_image_mean_dice": 0.6868634813902329,
+    "clean_image_count": 417,
+    "clean_image_false_alarm_count": 33,
+    "clean_image_false_alarm_rate": 0.07913669064748201,
+    "clean_image_specificity": 0.920863309352518,
+    "defect_image_count": 49,
+    "missed_defect_count": 2,
+    "missed_defect_rate": 0.04081632653061224,
+    "defect_image_recall": 0.9591836734693877
+  },
+  "validation_thresholds": {
+    "0.3": 0.5999693992324997,
+    "0.4": 0.609848532967475,
+    "0.5": 0.6172664168666794,
+    "0.6": 0.6234648698982729,
+    "0.7": 0.6287388482648884
+  }
+}

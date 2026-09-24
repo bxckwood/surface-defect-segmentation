@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import torch
 import yaml
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, WeightedRandomSampler
 from tqdm import tqdm
 
 from src.dataset import SurfaceDefectDataset
@@ -90,7 +90,29 @@ def main():
     train_data = SurfaceDefectDataset(data_root, split_dir / "train.csv", config["image_size"], train=True)
     val_data = SurfaceDefectDataset(data_root, split_dir / "val.csv", config["image_size"])
     loader_kwargs = {"batch_size": config["batch_size"], "num_workers": 0, "pin_memory": device.type == "cuda"}
-    train_loader = DataLoader(train_data, shuffle=True, **loader_kwargs)
+
+    positive_fraction = config.get("positive_sample_fraction")
+    sampling_generator = None
+    if positive_fraction is None:
+        train_loader = DataLoader(train_data, shuffle=True, **loader_kwargs)
+    else:
+        if not isinstance(positive_fraction, (int, float)) or not 0 < positive_fraction < 1:
+            parser.error("positive_sample_fraction must be between 0 and 1")
+
+        labels = [row["has_defect"] for row in train_data.rows]
+        if set(labels) != {"0", "1"}:
+            parser.error("Training split must contain both 0 and 1 in has_defect")
+
+        positive_count = labels.count("1")
+        negative_count = len(labels) - positive_count
+        # Долю каждой группы распределяем поровну между её снимками.
+        weights = [positive_fraction / positive_count if label == "1" else
+                   (1 - positive_fraction) / negative_count for label in labels]
+        sampling_generator = torch.Generator()
+        sampler = WeightedRandomSampler(weights, num_samples=len(train_data), replacement=True,
+                                        generator=sampling_generator)
+        train_loader = DataLoader(train_data, sampler=sampler, **loader_kwargs)
+
     val_loader = DataLoader(val_data, shuffle=False, **loader_kwargs)
 
     model = build_model(config["model"], pretrained=config.get("pretrained", False) and not args.resume).to(device)
@@ -112,7 +134,7 @@ def main():
         if not best_path.exists():
             parser.error(f"Missing best.pt in {output_dir}")
         keys = ("model", "loss", "pretrained", "seed", "data_root", "split_dir",
-                "image_size", "batch_size", "learning_rate", "weight_decay")
+                "image_size", "batch_size", "learning_rate", "weight_decay", "positive_sample_fraction")
         for path, saved in checkpoints:
             if any(saved["config"].get(key) != config.get(key) for key in keys):
                 parser.error(f"Configuration differs from {path}; only epochs and device may change")
@@ -158,6 +180,10 @@ def main():
         if not args.resume:
             writer.writeheader()
         for epoch in range(start_epoch, config["epochs"] + 1):
+            # Привязываем выбор индексов к эпохе для --resume.
+            if sampling_generator is not None:
+                sampling_generator.manual_seed(config["seed"] + epoch)
+
             train_loss = train_one_epoch(model, train_loader, loss_fn, optimizer, device, epoch, config["epochs"])
             val_loss, val_metrics = validate(model, val_loader, loss_fn, device, epoch, config["epochs"])
             val_iou = val_metrics["foreground_iou"]

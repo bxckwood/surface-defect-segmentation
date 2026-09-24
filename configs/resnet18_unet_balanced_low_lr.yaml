@@ -1,0 +1,14 @@
+seed: 42
+data_root: data/raw/KolektorSDD2
+split_dir: data/splits
+image_size: [640, 256]  # высота, ширина
+batch_size: 8
+epochs: 25
+learning_rate: 0.0001
+weight_decay: 0.0001
+device: auto
+model: resnet18_unet
+loss: bce_dice
+pretrained: true
+positive_sample_fraction: 0.25
+output_dir: runs/resnet18_unet_balanced_low_lr
