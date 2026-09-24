@@ -1,4 +1,5 @@
 import argparse
+import math
 from pathlib import Path
 
 import numpy as np
@@ -22,6 +23,9 @@ def load_model(checkpoint_path, device="cpu"):
 
 @torch.inference_mode()
 def predict_image(model, image, image_size, threshold=0.5, device="cpu"):
+    if not math.isfinite(threshold) or not 0.0 <= threshold <= 1.0:
+        raise ValueError("threshold must be finite and in [0, 1].")
+
     original = image.convert("RGB")
     tensor = image_to_tensor(original, image_size).unsqueeze(0).to(device)
     probability = torch.sigmoid(model(tensor))[0, 0]
@@ -67,6 +71,8 @@ def main():
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--device", default="cpu")
     args = parser.parse_args()
+    if not math.isfinite(args.threshold) or not 0.0 <= args.threshold <= 1.0:
+        parser.error("threshold must be finite and in [0, 1].")
 
     model, config = load_model(args.checkpoint, args.device)
     with Image.open(args.image) as file:

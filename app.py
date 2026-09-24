@@ -1,4 +1,5 @@
 import argparse
+import math
 from pathlib import Path
 
 import gradio as gr
@@ -12,6 +13,8 @@ def main():
     parser.add_argument("--threshold", type=float, default=0.5)
     parser.add_argument("--device", default="cpu")
     args = parser.parse_args()
+    if not math.isfinite(args.threshold) or not 0.0 <= args.threshold <= 1.0:
+        parser.error("threshold must be finite and in [0, 1].")
 
     model, config = load_model(args.checkpoint, args.device)
 

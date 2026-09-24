@@ -36,6 +36,8 @@
 
 Новый результат на `test` описательный: этот набор уже просматривался при анализе исходной модели. Он не является независимым подтверждением улучшения после выбора новых конфигураций на той же `val`.
 
+Точные метрики исходных запусков: [U-Net + BCE](reports/unet_bce_val_05.json), [U-Net + BCE + Dice](reports/unet_dice_val_05.json), [ResNet18 U-Net при 0.5](reports/resnet18_unet_val_05.json), [подбор порога на `val`](reports/resnet18_unet_val_threshold_search.json) и [оценка исходной модели на `test`](reports/resnet18_unet_test_07.json).
+
 ### Графики
 
 ![IoU и Dice пяти конфигураций на validation](reports/figures/validation_quality.svg)
@@ -58,7 +60,7 @@
 
 ## Примеры
 
-Панели показывают исходное изображение, разметку, предсказанную маску и наложение. Для нового варианта: [удачный случай](reports/examples/resnet18_unet_balanced_low_lr/good_1.png), [плохо выделенный дефект](reports/examples/resnet18_unet_balanced_low_lr/bad_2.png), [пропущенный дефект](reports/examples/resnet18_unet_balanced_low_lr/missed_1.png), [ложная тревога](reports/examples/resnet18_unet_balanced_low_lr/false_positive_1.png). Числа по каждому снимку — в [списке примеров нового варианта](reports/examples/resnet18_unet_balanced_low_lr/README.md). [Примеры исходной модели](reports/examples/README.md) сохранены отдельно.
+Панели показывают исходное изображение, разметку, предсказанную маску и наложение. Для нового варианта: [удачный случай](reports/examples/resnet18_unet_balanced_low_lr/good_1.png), [плохо выделенный дефект](reports/examples/resnet18_unet_balanced_low_lr/bad_2.png), [пропущенный дефект](reports/examples/resnet18_unet_balanced_low_lr/missed_1.png), [ложная тревога](reports/examples/resnet18_unet_balanced_low_lr/false_positive_1.png). Числа по каждому снимку рассчитаны на сетке модели 640×256 (высота×ширина), а панели показаны в исходном размере. Они приведены в [списке примеров нового варианта](reports/examples/resnet18_unet_balanced_low_lr/README.md). [Примеры исходной модели](reports/examples/README.md) сохранены отдельно.
 
 ![Удачное выделение дефекта новым вариантом](reports/examples/resnet18_unet_balanced_low_lr/good_1.png)
 
@@ -66,14 +68,20 @@
 
 ## Запуск
 
-Команды рассчитаны на PowerShell в корне проекта и Python 3.12. Команда `python` должна указывать на этот интерпретатор. После клонирования создайте окружение. Для запуска на CPU установите зависимости из `requirements.txt`:
+Команды рассчитаны на PowerShell в корне проекта и Python 3.12. Команда `python` должна указывать на этот интерпретатор. После клонирования создайте окружение:
 
 ```powershell
 python -m venv .venv
+```
+
+Для запуска на CPU установите CPU-сборки PyTorch, затем остальные зависимости:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install torch==2.9.0 torchvision==0.24.0 --index-url https://download.pytorch.org/whl/cpu
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Для NVIDIA с CUDA 12.8 вместо последней команды сначала установите соответствующие сборки PyTorch, затем остальные зависимости:
+Для NVIDIA с CUDA 12.8 используйте вместо CPU-команд следующие:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install torch==2.9.0 torchvision==0.24.0 --index-url https://download.pytorch.org/whl/cu128

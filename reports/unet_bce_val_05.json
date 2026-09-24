@@ -1,0 +1,26 @@
+{
+  "checkpoint": "runs\\unet_bce\\best.pt",
+  "model": "unet",
+  "loss_name": "bce",
+  "split": "val",
+  "loss": 0.007526898782854188,
+  "threshold": 0.5,
+  "metrics": {
+    "image_count": 466,
+    "pixel_tp": 70138,
+    "pixel_fp": 36698,
+    "pixel_fn": 101948,
+    "foreground_iou": 0.3359357038853552,
+    "foreground_dice": 0.5029219638465234,
+    "positive_image_mean_iou": 0.29338627947584667,
+    "positive_image_mean_dice": 0.3924305401124744,
+    "clean_image_count": 417,
+    "clean_image_false_alarm_count": 11,
+    "clean_image_false_alarm_rate": 0.026378896882494004,
+    "clean_image_specificity": 0.973621103117506,
+    "defect_image_count": 49,
+    "missed_defect_count": 13,
+    "missed_defect_rate": 0.2653061224489796,
+    "defect_image_recall": 0.7346938775510203
+  }
+}

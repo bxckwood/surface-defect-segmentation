@@ -1,0 +1,26 @@
+{
+  "checkpoint": "runs\\resnet18_unet\\best.pt",
+  "model": "resnet18_unet",
+  "loss_name": "bce_dice",
+  "split": "test",
+  "loss": 0.1928315746752277,
+  "threshold": 0.7,
+  "metrics": {
+    "image_count": 1004,
+    "pixel_tp": 332821,
+    "pixel_fp": 130986,
+    "pixel_fn": 217684,
+    "foreground_iou": 0.4883718200240355,
+    "foreground_dice": 0.6562497535275142,
+    "positive_image_mean_iou": 0.587857948108153,
+    "positive_image_mean_dice": 0.6947214744307778,
+    "clean_image_count": 894,
+    "clean_image_false_alarm_count": 114,
+    "clean_image_false_alarm_rate": 0.12751677852348994,
+    "clean_image_specificity": 0.87248322147651,
+    "defect_image_count": 110,
+    "missed_defect_count": 7,
+    "missed_defect_rate": 0.06363636363636363,
+    "defect_image_recall": 0.9363636363636364
+  }
+}

@@ -70,6 +70,10 @@ def save_examples(model, loader, data_root, image_size, threshold, device, outpu
         "false_positive": "Ложные срабатывания",
     }
     lines = ["# Примеры предсказаний и ошибок", "", f"Порог: {threshold}", "",
+             f"TP, FP, FN и IoU рассчитаны на сетке модели {image_size[0]}×{image_size[1]} "
+             "(высота×ширина). "
+             "Для панелей предсказанная маска возвращена к исходному размеру через NEAREST, "
+             "разметка показана в исходном размере.", "",
              "Примеры отобраны автоматически по пересечению масок и числу ошибок.", ""]
 
     for label, selected in groups.items():
