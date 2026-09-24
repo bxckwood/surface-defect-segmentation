@@ -1,55 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="515" viewBox="0 0 1160 515" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="700" viewBox="0 0 1320 700" role="img" aria-labelledby="title desc">
 <title id="title">Ошибки на снимках validation</title>
-<desc id="desc">Доля чистых снимков с ложной тревогой и доля снимков с дефектом без пересечения масок, порог 0,5.</desc>
-<style>text{font-family:"Segoe UI",Arial,sans-serif} .title{font-size:27px;font-weight:700;fill:#14233a} .sub{font-size:15px;fill:#64748b} .head{font-size:17px;font-weight:700;fill:#263b55} .label{font-size:15px;font-weight:600;fill:#263b55} .tick{font-size:12px;fill:#748296} .value{font-size:16px;font-weight:700;fill:#263b55} .note{font-size:13px;fill:#64748b}</style>
-<rect width="1160" height="515" rx="20" fill="#f6f8fc"/>
+<desc id="desc">Пять вариантов при пороге 0,5; доля чистых снимков с ложной тревогой и дефектных снимков без пересечения масок.</desc>
+<style>text{font-family:"Segoe UI",Arial,sans-serif}.title{font-size:27px;font-weight:700;fill:#14233a}.sub{font-size:15px;fill:#64748b}.head{font-size:17px;font-weight:700;fill:#263b55}.label{font-size:15px;font-weight:600;fill:#263b55}.detail{font-size:13px;fill:#64748b}.tick{font-size:12px;fill:#748296}.value{font-size:16px;font-weight:700;fill:#263b55}.note{font-size:13px;fill:#64748b}</style>
+<rect x="0.0" y="0.0" width="1320.0" height="700.0" rx="20.0" fill="#f6f8fc"/>
 <text x="48.0" y="52.0" class="title" text-anchor="start">Ошибки на снимках validation</text>
-<text x="48.0" y="80.0" class="sub" text-anchor="start">Порог 0,5 · чем ниже, тем лучше</text>
-<rect x="30.0" y="106.0" width="1100.0" height="373.0" rx="16.0" fill="#ffffff"/>
-<text x="315.0" y="145.0" class="head" text-anchor="start">Ложные тревоги</text>
-<text x="315.0" y="167.0" class="note" text-anchor="start">417 чистых снимков</text>
-<line x1="315.0" y1="205.0" x2="315.0" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="315.0" y="195.0" class="tick" text-anchor="middle">0%</text>
-<line x1="418.3" y1="205.0" x2="418.3" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="418.3" y="195.0" class="tick" text-anchor="middle">10%</text>
-<line x1="521.7" y1="205.0" x2="521.7" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="521.7" y="195.0" class="tick" text-anchor="middle">20%</text>
-<line x1="625.0" y1="205.0" x2="625.0" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="625.0" y="195.0" class="tick" text-anchor="middle">30%</text>
-<rect x="315.0" y="230.0" width="27.3" height="28.0" rx="5.0" fill="#64748b"/>
-<text x="351.3" y="249.0" class="value" text-anchor="start">2,6%</text>
-<text x="351.3" y="266.0" class="tick" text-anchor="start">11/417</text>
-<rect x="315.0" y="309.0" width="195.8" height="28.0" rx="5.0" fill="#e27850"/>
-<text x="519.8" y="328.0" class="value" text-anchor="start">18,9%</text>
-<text x="519.8" y="345.0" class="tick" text-anchor="start">79/417</text>
-<rect x="315.0" y="388.0" width="143.7" height="28.0" rx="5.0" fill="#079785"/>
-<text x="467.7" y="407.0" class="value" text-anchor="start">13,9%</text>
-<text x="467.7" y="424.0" class="tick" text-anchor="start">58/417</text>
-<text x="739.0" y="145.0" class="head" text-anchor="start">Пропуски дефектов</text>
-<text x="739.0" y="167.0" class="note" text-anchor="start">49 снимков с дефектом</text>
-<line x1="739.0" y1="205.0" x2="739.0" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="739.0" y="195.0" class="tick" text-anchor="middle">0%</text>
-<line x1="842.3" y1="205.0" x2="842.3" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="842.3" y="195.0" class="tick" text-anchor="middle">10%</text>
-<line x1="945.7" y1="205.0" x2="945.7" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="945.7" y="195.0" class="tick" text-anchor="middle">20%</text>
-<line x1="1049.0" y1="205.0" x2="1049.0" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="1049.0" y="195.0" class="tick" text-anchor="middle">30%</text>
-<rect x="739.0" y="230.0" width="274.1" height="28.0" rx="5.0" fill="#64748b"/>
-<text x="1022.1" y="249.0" class="value" text-anchor="start">26,5%</text>
-<text x="1022.1" y="266.0" class="tick" text-anchor="start">13/49</text>
-<rect x="739.0" y="309.0" width="84.4" height="28.0" rx="5.0" fill="#e27850"/>
-<text x="832.4" y="328.0" class="value" text-anchor="start">8,2%</text>
-<text x="832.4" y="345.0" class="tick" text-anchor="start">4/49</text>
-<rect x="739.0" y="388.0" width="63.3" height="28.0" rx="5.0" fill="#079785"/>
-<text x="811.3" y="407.0" class="value" text-anchor="start">6,1%</text>
-<text x="811.3" y="424.0" class="tick" text-anchor="start">3/49</text>
-<rect x="56.0" y="233.0" width="13.0" height="13.0" rx="3.0" fill="#64748b"/>
-<text x="79.0" y="246.0" class="label" text-anchor="start">U-Net · BCE</text>
-<line x1="53.0" y1="283.0" x2="1107.0" y2="283.0" stroke="#eff2f7" stroke-width="1"/>
-<rect x="56.0" y="312.0" width="13.0" height="13.0" rx="3.0" fill="#e27850"/>
-<text x="79.0" y="325.0" class="label" text-anchor="start">U-Net · BCE + Dice</text>
-<line x1="53.0" y1="362.0" x2="1107.0" y2="362.0" stroke="#eff2f7" stroke-width="1"/>
-<rect x="56.0" y="391.0" width="13.0" height="13.0" rx="3.0" fill="#079785"/>
-<text x="79.0" y="404.0" class="label" text-anchor="start">ResNet18 U-Net · BCE + Dice</text>
+<text x="48.0" y="80.0" class="sub" text-anchor="start">Порог 0,5 · доля изображений · чем ниже, тем лучше</text>
+<rect x="30.0" y="105.0" width="1260.0" height="555.0" rx="16.0" fill="#ffffff"/>
+<text x="425.0" y="145.0" class="head" text-anchor="start">Ложные тревоги</text>
+<text x="425.0" y="168.0" class="note" text-anchor="start">417 чистых изображений</text>
+<text x="850.0" y="145.0" class="head" text-anchor="start">Пропущенные дефекты</text>
+<text x="850.0" y="168.0" class="note" text-anchor="start">49 изображений с дефектом</text>
+<line x1="425.0" y1="209.0" x2="425.0" y2="620.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="425.0" y="198.0" class="tick" text-anchor="middle">0%</text>
+<line x1="525.0" y1="209.0" x2="525.0" y2="620.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="525.0" y="198.0" class="tick" text-anchor="middle">10%</text>
+<line x1="625.0" y1="209.0" x2="625.0" y2="620.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="625.0" y="198.0" class="tick" text-anchor="middle">20%</text>
+<line x1="725.0" y1="209.0" x2="725.0" y2="620.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="725.0" y="198.0" class="tick" text-anchor="middle">30%</text>
+<line x1="850.0" y1="209.0" x2="850.0" y2="620.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="850.0" y="198.0" class="tick" text-anchor="middle">0%</text>
+<line x1="950.0" y1="209.0" x2="950.0" y2="620.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="950.0" y="198.0" class="tick" text-anchor="middle">10%</text>
+<line x1="1050.0" y1="209.0" x2="1050.0" y2="620.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="1050.0" y="198.0" class="tick" text-anchor="middle">20%</text>
+<line x1="1150.0" y1="209.0" x2="1150.0" y2="620.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="1150.0" y="198.0" class="tick" text-anchor="middle">30%</text>
+<rect x="425.0" y="231.0" width="26.4" height="24.0" rx="5.0" fill="#66758b"/>
+<text x="459.4" y="244.0" class="value" text-anchor="start">2,6%</text>
+<text x="459.4" y="263.0" class="tick" text-anchor="start">11/417</text>
+<rect x="850.0" y="231.0" width="265.3" height="24.0" rx="5.0" fill="#66758b"/>
+<text x="1123.3" y="244.0" class="value" text-anchor="start">26,5%</text>
+<text x="1123.3" y="263.0" class="tick" text-anchor="start">13/49</text>
+<rect x="425.0" y="312.0" width="189.4" height="24.0" rx="5.0" fill="#d06b47"/>
+<text x="622.4" y="325.0" class="value" text-anchor="start">18,9%</text>
+<text x="622.4" y="344.0" class="tick" text-anchor="start">79/417</text>
+<rect x="850.0" y="312.0" width="81.6" height="24.0" rx="5.0" fill="#d06b47"/>
+<text x="939.6" y="325.0" class="value" text-anchor="start">8,2%</text>
+<text x="939.6" y="344.0" class="tick" text-anchor="start">4/49</text>
+<rect x="425.0" y="393.0" width="139.1" height="24.0" rx="5.0" fill="#008c80"/>
+<text x="572.1" y="406.0" class="value" text-anchor="start">13,9%</text>
+<text x="572.1" y="425.0" class="tick" text-anchor="start">58/417</text>
+<rect x="850.0" y="393.0" width="61.2" height="24.0" rx="5.0" fill="#008c80"/>
+<text x="919.2" y="406.0" class="value" text-anchor="start">6,1%</text>
+<text x="919.2" y="425.0" class="tick" text-anchor="start">3/49</text>
+<rect x="425.0" y="474.0" width="48.0" height="24.0" rx="5.0" fill="#426bca"/>
+<text x="481.0" y="487.0" class="value" text-anchor="start">4,8%</text>
+<text x="481.0" y="506.0" class="tick" text-anchor="start">20/417</text>
+<rect x="850.0" y="474.0" width="102.0" height="24.0" rx="5.0" fill="#426bca"/>
+<text x="960.0" y="487.0" class="value" text-anchor="start">10,2%</text>
+<text x="960.0" y="506.0" class="tick" text-anchor="start">5/49</text>
+<rect x="425.0" y="555.0" width="107.9" height="24.0" rx="5.0" fill="#7b4bc2"/>
+<text x="540.9" y="568.0" class="value" text-anchor="start">10,8%</text>
+<text x="540.9" y="587.0" class="tick" text-anchor="start">45/417</text>
+<rect x="850.0" y="555.0" width="40.8" height="24.0" rx="5.0" fill="#7b4bc2"/>
+<text x="898.8" y="568.0" class="value" text-anchor="start">4,1%</text>
+<text x="898.8" y="587.0" class="tick" text-anchor="start">2/49</text>
+<rect x="55.0" y="232.0" width="13.0" height="13.0" rx="3.0" fill="#66758b"/>
+<text x="80.0" y="244.0" class="label" text-anchor="start">U-Net</text>
+<text x="80.0" y="263.0" class="detail" text-anchor="start">BCE</text>
+<line x1="52.0" y1="285.0" x2="1268.0" y2="285.0" stroke="#edf1f6" stroke-width="1"/>
+<rect x="55.0" y="313.0" width="13.0" height="13.0" rx="3.0" fill="#d06b47"/>
+<text x="80.0" y="325.0" class="label" text-anchor="start">U-Net</text>
+<text x="80.0" y="344.0" class="detail" text-anchor="start">BCE + Dice</text>
+<line x1="52.0" y1="366.0" x2="1268.0" y2="366.0" stroke="#edf1f6" stroke-width="1"/>
+<rect x="55.0" y="394.0" width="13.0" height="13.0" rx="3.0" fill="#008c80"/>
+<text x="80.0" y="406.0" class="label" text-anchor="start">ResNet18 U-Net</text>
+<text x="80.0" y="425.0" class="detail" text-anchor="start">BCE + Dice · исходная</text>
+<line x1="52.0" y1="447.0" x2="1268.0" y2="447.0" stroke="#edf1f6" stroke-width="1"/>
+<rect x="55.0" y="475.0" width="13.0" height="13.0" rx="3.0" fill="#426bca"/>
+<text x="80.0" y="487.0" class="label" text-anchor="start">ResNet18 U-Net</text>
+<text x="80.0" y="506.0" class="detail" text-anchor="start">BCE + Dice · баланс 25%</text>
+<line x1="52.0" y1="528.0" x2="1268.0" y2="528.0" stroke="#edf1f6" stroke-width="1"/>
+<rect x="55.0" y="556.0" width="13.0" height="13.0" rx="3.0" fill="#7b4bc2"/>
+<text x="80.0" y="568.0" class="label" text-anchor="start">ResNet18 U-Net</text>
+<text x="80.0" y="587.0" class="detail" text-anchor="start">BCE + Dice · баланс 25%, LR 0,0001</text>
 </svg>

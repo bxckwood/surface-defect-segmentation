@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="700" viewBox="0 0 1320 700" role="img" aria-labelledby="title desc">
+<title id="title">Сравнение моделей на test</title>
+<desc id="desc">Исходная ResNet18 U-Net и вариант с балансом 25 процентов и меньшим learning rate при пороге 0,7. Новый результат описательный, поскольку test уже просматривался.</desc>
+<style>text{font-family:"Segoe UI",Arial,sans-serif}.title{font-size:27px;font-weight:700;fill:#14233a}.sub{font-size:15px;fill:#64748b}.head{font-size:17px;font-weight:700;fill:#263b55}.label{font-size:15px;font-weight:600;fill:#263b55}.detail{font-size:13px;fill:#64748b}.tick{font-size:12px;fill:#748296}.value{font-size:16px;font-weight:700;fill:#263b55}.note{font-size:13px;fill:#64748b}</style>
+<rect x="0.0" y="0.0" width="1320.0" height="700.0" rx="20.0" fill="#f6f8fc"/>
+<text x="48.0" y="52.0" class="title" text-anchor="start">Сравнение моделей на test</text>
+<text x="48.0" y="80.0" class="sub" text-anchor="start">Порог 0,7 выбран на validation · лучший checkpoint каждого запуска</text>
+<rect x="30.0" y="105.0" width="1260.0" height="555.0" rx="16.0" fill="#ffffff"/>
+<rect x="65.0" y="128.0" width="13.0" height="13.0" rx="3.0" fill="#008c80"/>
+<text x="87.0" y="140.0" class="label" text-anchor="start">Исходная ResNet18 U-Net</text>
+<rect x="480.0" y="128.0" width="13.0" height="13.0" rx="3.0" fill="#7b4bc2"/>
+<text x="502.0" y="140.0" class="label" text-anchor="start">Баланс 25% + LR 0,0001</text>
+<line x1="660.0" y1="177.0" x2="660.0" y2="549.0" stroke="#edf1f6" stroke-width="1"/>
+<text x="75.0" y="192.0" class="head" text-anchor="start">Пиксельные метрики</text>
+<text x="75.0" y="213.0" class="note" text-anchor="start">Шкала 0–1 · выше — лучше</text>
+<text x="695.0" y="192.0" class="head" text-anchor="start">Ошибки на снимках</text>
+<text x="695.0" y="213.0" class="note" text-anchor="start">Шкала 0–15% · ниже — лучше</text>
+<text x="200.0" y="247.0" class="label" text-anchor="start">Foreground IoU</text>
+<rect x="200.0" y="265.0" width="146.5" height="23.0" rx="5.0" fill="#008c80"/>
+<text x="354.5" y="283.0" class="value" text-anchor="start">0,488</text>
+<rect x="200.0" y="302.0" width="181.4" height="23.0" rx="5.0" fill="#7b4bc2"/>
+<text x="389.4" y="320.0" class="value" text-anchor="start">0,605</text>
+<line x1="200.0" y1="345.0" x2="500.0" y2="345.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="200.0" y="361.0" class="tick" text-anchor="middle">0</text>
+<text x="500.0" y="361.0" class="tick" text-anchor="middle">1</text>
+<text x="200.0" y="407.0" class="label" text-anchor="start">Foreground Dice</text>
+<rect x="200.0" y="425.0" width="196.9" height="23.0" rx="5.0" fill="#008c80"/>
+<text x="404.9" y="443.0" class="value" text-anchor="start">0,656</text>
+<rect x="200.0" y="462.0" width="226.1" height="23.0" rx="5.0" fill="#7b4bc2"/>
+<text x="434.1" y="480.0" class="value" text-anchor="start">0,754</text>
+<line x1="200.0" y1="505.0" x2="500.0" y2="505.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="200.0" y="521.0" class="tick" text-anchor="middle">0</text>
+<text x="500.0" y="521.0" class="tick" text-anchor="middle">1</text>
+<text x="855.0" y="247.0" class="label" text-anchor="start">Ложные тревоги · 894 чистых</text>
+<rect x="855.0" y="265.0" width="255.0" height="23.0" rx="5.0" fill="#008c80"/>
+<text x="1118.0" y="283.0" class="value" text-anchor="start">12,75% · 114/894</text>
+<rect x="855.0" y="302.0" width="109.6" height="23.0" rx="5.0" fill="#7b4bc2"/>
+<text x="972.6" y="320.0" class="value" text-anchor="start">5,48% · 49/894</text>
+<line x1="855.0" y1="345.0" x2="1155.0" y2="345.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="855.0" y="361.0" class="tick" text-anchor="middle">0</text>
+<text x="1155.0" y="361.0" class="tick" text-anchor="middle">15%</text>
+<text x="855.0" y="407.0" class="label" text-anchor="start">Пропуски · 110 с дефектом</text>
+<rect x="855.0" y="425.0" width="127.3" height="23.0" rx="5.0" fill="#008c80"/>
+<text x="990.3" y="443.0" class="value" text-anchor="start">6,36% · 7/110</text>
+<rect x="855.0" y="462.0" width="109.1" height="23.0" rx="5.0" fill="#7b4bc2"/>
+<text x="972.1" y="480.0" class="value" text-anchor="start">5,45% · 6/110</text>
+<line x1="855.0" y1="505.0" x2="1155.0" y2="505.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="855.0" y="521.0" class="tick" text-anchor="middle">0</text>
+<text x="1155.0" y="521.0" class="tick" text-anchor="middle">15%</text>
+<rect x="49.0" y="574.0" width="1222.0" height="62.0" rx="10.0" fill="#f0ecfa"/>
+<text x="70.0" y="600.0" class="label" text-anchor="start">Новый результат на ранее просмотренном test — описательное сравнение.</text>
+<text x="70.0" y="623.0" class="note" text-anchor="start">Эта оценка не служит независимым подтверждением улучшения после выбора эксперимента.</text>
+</svg>

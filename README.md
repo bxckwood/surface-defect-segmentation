@@ -20,41 +20,49 @@
 
 В вариантах BCE + Dice компонент Dice усредняется только по снимкам с дефектом, а BCE — по всем, включая чистые.
 
-Во всех трёх конфигурациях одинаковы split, seed, размер входа `[height, width] = [640, 256]`, batch size, число эпох и параметры AdamW. Во втором эксперименте меняется loss; в третьем одновременно меняются encoder и предобучение, поэтому их отдельный вклад из этого сравнения установить нельзя. Общее сравнение проводится на validation при пороге 0.5.
+В трёх исходных конфигурациях одинаковы split, seed, размер входа `[height, width] = [640, 256]`, batch size, число эпох и параметры AdamW. Во втором эксперименте меняется loss; в третьем одновременно меняются encoder и предобучение, поэтому их отдельный вклад из этого сравнения установить нельзя. Ещё два запуска используют ту же ResNet18 U-Net с другой выборкой снимков при обучении; один из них также меняет learning rate. Общее сравнение проводится на validation при пороге 0.5.
 
-## Исходные три эксперимента
+## Результаты
 
-Все три эксперимента содержат по 25 эпох. Для сравнения моделей значения `val` получены при общем пороге 0.5. По validation IoU выбрана ResNet18 U-Net (`best.pt`, эпоха 23); затем **только на validation** из порогов 0.3–0.7 выбран 0.7. Итоговые показатели `test` относятся к этому checkpoint и порогу. Подробности — в [отчёте](reports/model_comparison.md).
+Все пять запусков содержат по 25 эпох. Значения `val` получены при общем пороге 0.5. Для исходной ResNet18 U-Net сохранён `best.pt` эпохи 23, для варианта с долей дефектных снимков 25% и меньшим learning rate — эпохи 10. Для каждого из этих двух checkpoint порог 0.7 выбран на `val` из сетки 0.3–0.7; при нём получены приведённые ниже показатели `test`. Исходная модель доступна в Release `v1.0.0`, новый checkpoint пока только локально. Подробности исходных трёх запусков — в [отчёте](reports/model_comparison.md).
 
-| Модель | Loss | Val IoU | Val Dice | Test IoU | Test Dice |
+| Конфигурация | Loss | Val IoU | Val Dice | Test IoU | Test Dice |
 | --- | --- | --- | --- | --- | --- |
 | U-Net | BCE | 0.336 | 0.503 | — | — |
 | U-Net | BCE + Dice | 0.408 | 0.579 | — | — |
-| ResNet18 U-Net | BCE + Dice | 0.499 | 0.666 | 0.488 | 0.656 |
+| ResNet18 U-Net · исходная, `v1.0.0` | BCE + Dice | 0.499 | 0.666 | 0.488 | 0.656 |
+| ResNet18 U-Net · баланс 25%, LR 0.0003 | BCE + Dice | 0.560 | 0.718 | — | — |
+| ResNet18 U-Net · баланс 25%, LR 0.0001 | BCE + Dice | **0.617** | **0.763** | 0.605 | 0.754 |
+
+Новый результат на `test` описательный: этот набор уже просматривался при анализе исходной модели. Он не является независимым подтверждением улучшения после выбора новых конфигураций на той же `val`.
 
 ### Графики
 
-![IoU и Dice трёх моделей на validation](reports/figures/validation_quality.svg)
+![IoU и Dice пяти конфигураций на validation](reports/figures/validation_quality.svg)
 
-На графике показаны foreground IoU и Dice лучших checkpoint трёх моделей на `val` при общем пороге 0.5. ResNet18 U-Net лидирует по обеим метрикам.
+На графике показаны foreground IoU и Dice лучших checkpoint пяти конфигураций на `val` при общем пороге 0.5. Среди этих запусков наибольшие значения у ResNet18 U-Net с балансом 25% и LR 0.0001.
 
-![IoU на validation по эпохам для трёх моделей](reports/figures/validation_iou_epochs.svg)
+![IoU на validation по эпохам для пяти конфигураций](reports/figures/validation_iou_epochs.svg)
 
-Линии показывают validation IoU после каждой эпохи при пороге 0.5. Кружок отмечает лучшую эпоху, из которой сохранён `best.pt`. Числа взяты из небольших файлов истории: [U-Net + BCE](reports/histories/unet_bce.csv), [U-Net + BCE + Dice](reports/histories/unet_dice.csv), [ResNet18 U-Net](reports/histories/resnet18_unet.csv).
+Линии показывают validation IoU после каждой эпохи при пороге 0.5. Кружок отмечает лучшую эпоху, из которой сохранён `best.pt`. Числа взяты из файлов истории: [U-Net + BCE](reports/histories/unet_bce.csv), [U-Net + BCE + Dice](reports/histories/unet_dice.csv), [исходная ResNet18 U-Net](reports/histories/resnet18_unet.csv), [баланс 25%](reports/histories/resnet18_unet_balanced.csv), [баланс 25% и LR 0.0001](reports/histories/resnet18_unet_balanced_low_lr.csv).
 
-![Частоты ложных тревог и пропусков на validation по моделям](reports/figures/validation_error_rates.svg)
+![Частоты ложных тревог и пропусков на validation для пяти конфигураций](reports/figures/validation_error_rates.svg)
 
 На `val` при пороге 0.5 ложная тревога означает хотя бы один ошибочно выделенный пиксель на чистом снимке; пропуск означает отсутствие пересечения предсказания с разметкой на снимке с дефектом. Подписи у столбцов содержат число таких снимков и размер соответствующей группы.
 
-На validation у U-Net с BCE + Dice IoU выше, чем с BCE; полностью пропущенных дефектов 4 вместо 13 из 49, ложных тревог 79 вместо 11 из 417 чистых снимков. ResNet18 U-Net при пороге 0.5 пропустила 3 из 49 дефектных и дала ложные тревоги на 58 из 417 чистых снимков. На test при пороге 0.7: 7 из 110 снимков с дефектом без пересечения предсказания с разметкой и 114 из 894 чистых снимков с хотя бы одним предсказанным пикселем дефекта.
+На `val` при пороге 0.5 исходная ResNet18 U-Net пропустила 3 из 49 дефектных снимков и дала ложные тревоги на 58 из 417 чистых. Вариант с балансом 25% и LR 0.0001 пропустил 2 из 49 и дал 45 ложных тревог из 417. Вариант с LR 0.0003 дал меньше ложных тревог (20 из 417), но больше пропусков (5 из 49).
+
+![Сравнение двух ResNet18 U-Net на test при пороге 0.7](reports/figures/test_comparison.svg)
+
+На `test` при пороге 0.7 исходная модель дала 114 ложных тревог из 894 чистых снимков и 7 пропусков из 110 дефектных; новый вариант — 49 из 894 и 6 из 110 соответственно. [Метрики нового варианта](reports/resnet18_unet_balanced_low_lr_test_07.json) сохраняют точные значения IoU и Dice из таблицы.
 
 ## Примеры
 
-Панели показывают исходное изображение, разметку, предсказанную маску и наложение. [Удачный случай](reports/examples/good_1.png), [плохо выделенный дефект](reports/examples/bad_2.png), [пропущенный дефект](reports/examples/missed_1.png), [ложная тревога](reports/examples/false_positive_1.png). Другие панели и численные показатели — в [списке примеров](reports/examples/README.md); наблюдения — в [отчёте](reports/model_comparison.md).
+Панели показывают исходное изображение, разметку, предсказанную маску и наложение. Для нового варианта: [удачный случай](reports/examples/resnet18_unet_balanced_low_lr/good_1.png), [плохо выделенный дефект](reports/examples/resnet18_unet_balanced_low_lr/bad_2.png), [пропущенный дефект](reports/examples/resnet18_unet_balanced_low_lr/missed_1.png), [ложная тревога](reports/examples/resnet18_unet_balanced_low_lr/false_positive_1.png). Числа по каждому снимку — в [списке примеров нового варианта](reports/examples/resnet18_unet_balanced_low_lr/README.md). [Примеры исходной модели](reports/examples/README.md) сохранены отдельно.
 
-![Удачное выделение дефекта](reports/examples/good_1.png)
+![Удачное выделение дефекта новым вариантом](reports/examples/resnet18_unet_balanced_low_lr/good_1.png)
 
-![Ложное выделение на чистом снимке](reports/examples/false_positive_1.png)
+![Ложное выделение новым вариантом на чистом снимке](reports/examples/resnet18_unet_balanced_low_lr/false_positive_1.png)
 
 ## Запуск
 
@@ -72,7 +80,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Для обучения и оценки нужен датасет из раздела «Данные». Для предсказания на своём изображении достаточно [checkpoint выбранной ResNet18 U-Net](https://github.com/bxckwood/surface-defect-segmentation/releases/download/v1.0.0/best.pt). Сохраните его по пути `runs/resnet18_unet/best.pt`:
+Для обучения и оценки нужен датасет из раздела «Данные». Для предсказания на своём изображении можно скачать [опубликованный checkpoint исходной ResNet18 U-Net](https://github.com/bxckwood/surface-defect-segmentation/releases/download/v1.0.0/best.pt). Он отличается от нового варианта с балансом 25% и LR 0.0001, чей checkpoint пока доступен только после собственного обучения. Сохраните опубликованный файл по пути `runs/resnet18_unet/best.pt`:
 
 ```powershell
 New-Item -ItemType Directory -Force runs/resnet18_unet | Out-Null
@@ -109,7 +117,7 @@ $checkpoint = "runs/resnet18_unet/best.pt"
 .\.venv\Scripts\python.exe -m src.evaluate --checkpoint $checkpoint --split val --search-threshold --output runs/resnet18_unet/val_threshold_search.json
 ```
 
-Опубликованные показатели `test` приведены в таблице выше и в отчёте. При воспроизведении всей процедуры зафиксируйте модель и порог до оценки `test`. Команда создаст локальный `runs/resnet18_unet/test_metrics.json`; примеры запишутся в игнорируемую Git папку, не перезаписывая опубликованные панели:
+Показатели исходной модели на `test` приведены в таблице выше и в отчёте. При воспроизведении всей процедуры зафиксируйте модель и порог до оценки `test`. Команда создаст локальный `runs/resnet18_unet/test_metrics.json`; примеры запишутся в игнорируемую Git папку, не перезаписывая опубликованные панели:
 
 ```powershell
 $checkpoint = "runs/resnet18_unet/best.pt"
@@ -117,7 +125,7 @@ $threshold = 0.7
 .\.venv\Scripts\python.exe -m src.evaluate --checkpoint $checkpoint --split test --threshold $threshold --examples-dir runs/test_examples
 ```
 
-Для нового изображения и локального demo используйте выбранный checkpoint и порог:
+Для нового изображения и локального demo с опубликованной исходной моделью используйте её checkpoint и выбранный на `val` порог:
 
 ```powershell
 $checkpoint = "runs/resnet18_unet/best.pt"
@@ -144,7 +152,7 @@ $threshold = 0.7
 
 При переборе порогов 0.3–0.7 только на `val` вариант с меньшим learning rate получил лучший IoU при 0.7: **0.6287**, Dice **0.7721**, 33 ложные тревоги из 417 и 2 пропуска из 49. У варианта с learning rate 0.0003 при том же пороге IoU 0.5667, 17 ложных тревог и 5 пропусков.
 
-Для первого варианта сохранены [история](reports/histories/resnet18_unet_balanced.csv), [метрики при 0.5](reports/resnet18_unet_balanced_val_05.json) и [поиск порога](reports/resnet18_unet_balanced_val_threshold_search.json). Для варианта с меньшим learning rate — [история](reports/histories/resnet18_unet_balanced_low_lr.csv), [метрики при 0.5](reports/resnet18_unet_balanced_low_lr_val_05.json) и [поиск порога](reports/resnet18_unet_balanced_low_lr_val_threshold_search.json). Графики выше относятся только к трём исходным экспериментам. Оба новых checkpoint пока хранятся только локально в `runs/`; опубликованный `v1.0.0/best.pt` — исходная модель.
+Для первого варианта сохранены [история](reports/histories/resnet18_unet_balanced.csv), [метрики при 0.5](reports/resnet18_unet_balanced_val_05.json) и [поиск порога](reports/resnet18_unet_balanced_val_threshold_search.json). Для варианта с меньшим learning rate — [история](reports/histories/resnet18_unet_balanced_low_lr.csv), [метрики при 0.5](reports/resnet18_unet_balanced_low_lr_val_05.json), [поиск порога](reports/resnet18_unet_balanced_low_lr_val_threshold_search.json) и [оценка на test при 0.7](reports/resnet18_unet_balanced_low_lr_test_07.json). Оба новых checkpoint пока хранятся только локально в `runs/`; опубликованный `v1.0.0/best.pt` — исходная модель.
 
 Для повторного обучения нужен пустой `output_dir` в YAML. Команды для варианта с меньшим learning rate:
 
@@ -152,14 +160,15 @@ $threshold = 0.7
 .\.venv\Scripts\python.exe -m src.train --config configs/resnet18_unet_balanced_low_lr.yaml
 .\.venv\Scripts\python.exe -m src.evaluate --checkpoint runs/resnet18_unet_balanced_low_lr/best.pt --split val --threshold 0.5 --device cuda
 .\.venv\Scripts\python.exe -m src.evaluate --checkpoint runs/resnet18_unet_balanced_low_lr/best.pt --split val --search-threshold --device cuda --output runs/resnet18_unet_balanced_low_lr/val_threshold_search.json
+.\.venv\Scripts\python.exe -m src.evaluate --checkpoint runs/resnet18_unet_balanced_low_lr/best.pt --split test --threshold 0.7 --device cuda --examples-dir runs/resnet18_unet_balanced_low_lr/test_examples
 ```
 
-На CPU значения могут немного отличаться: при оценке первого варианта с семплером IoU получился 0.5601 вместо 0.5604 на GPU. Сравнение основано на одном split и одном seed. Новые варианты не оценивались на `test`; прежний `test` уже просмотрен при разборе ошибок исходной модели. Для независимого подтверждения улучшения нужна новая отложенная выборка.
+На CPU значения могут немного отличаться: при оценке первого варианта с семплером IoU получился 0.5601 вместо 0.5604 на GPU. Сравнение основано на одном split и одном seed. Из двух новых вариантов на `test` оценён только вариант с меньшим learning rate. Этот `test` уже просматривался при разборе ошибок исходной модели, поэтому для независимого подтверждения улучшения нужна новая отложенная выборка.
 
 ## Выводы из результатов
 
-В исходных запусках U-Net с BCE + Dice получила более высокий validation IoU и меньше пропусков, чем U-Net с BCE, при большем числе ложных тревог. ResNet18 U-Net показала наилучший validation IoU среди этих трёх моделей. При пороге 0.7 вместо 0.5 её validation IoU вырос с 0.499 до 0.502. Дополнительный запуск с долей дефектных снимков 25% и learning rate 0.0001 улучшил validation IoU и сократил пропуски относительно исходной ResNet18 U-Net. На test исходной модели есть удачные выделения, неполные маски, пропущенные дефекты и крупные ложные выделения на чистых снимках.
+В исходных запусках U-Net с BCE + Dice получила более высокий validation IoU и меньше пропусков, чем U-Net с BCE, при большем числе ложных тревог. Исходная ResNet18 U-Net показала наилучший validation IoU среди первых трёх моделей. Дополнительный запуск с долей дефектных снимков 25% и learning rate 0.0001 улучшил validation IoU с 0.499 до 0.617 при общем пороге 0.5. На `test` при пороге 0.7 его IoU составил 0.605 против 0.488 у исходной модели, с 49 вместо 114 ложных тревог и 6 вместо 7 пропусков. Эти данные описывают данный запуск и уже просмотренный `test`.
 
 ## Ограничения
 
-Фиксированный resize меняет масштаб дефектов. Один split и один seed не показывают разброс между запусками. Эксперимент с ResNet18 одновременно меняет архитектуру encoder и инициализацию, поэтому сравнение не доказывает, что улучшение вызвано конкретно предобучением. Для исходной модели порог 0.7 оказался лучшим только в небольшой сетке порогов на этой validation выборке; разница с 0.5 мала. Опубликованные показатели `test` относятся только к исходной ResNet18 U-Net. Повторный выбор конфигурации и порога на той же `val` может завысить оценку новых вариантов.
+Фиксированный resize меняет масштаб дефектов. Один split и один seed не показывают разброс между запусками. Эксперимент с ResNet18 одновременно меняет архитектуру encoder и инициализацию, поэтому сравнение не доказывает, что улучшение вызвано конкретно предобучением. Для обеих оценённых на `test` моделей порог 0.7 выбран только из небольшой сетки порогов на этой validation выборке. Повторный выбор конфигурации и порога на той же `val` может завысить оценку нового варианта; ранее просмотренный `test` не служит независимой проверкой улучшения. В Release `v1.0.0` опубликован только исходный checkpoint.

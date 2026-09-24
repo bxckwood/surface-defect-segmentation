@@ -1,47 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="470" viewBox="0 0 1160 470" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="650" viewBox="0 0 1320 650" role="img" aria-labelledby="title desc">
 <title id="title">Качество сегментации по моделям</title>
-<desc id="desc">Validation, порог 0,5. Foreground IoU и Dice для трёх моделей.</desc>
-<style>text{font-family:"Segoe UI",Arial,sans-serif} .title{font-size:27px;font-weight:700;fill:#14233a} .sub{font-size:15px;fill:#64748b} .head{font-size:17px;font-weight:700;fill:#263b55} .label{font-size:15px;font-weight:600;fill:#263b55} .tick{font-size:12px;fill:#748296} .value{font-size:16px;font-weight:700;fill:#263b55} .note{font-size:13px;fill:#64748b}</style>
-<rect width="1160" height="470" rx="20" fill="#f6f8fc"/>
+<desc id="desc">Пять вариантов, validation при пороге 0,5; Foreground IoU и Dice по пикселям.</desc>
+<style>text{font-family:"Segoe UI",Arial,sans-serif}.title{font-size:27px;font-weight:700;fill:#14233a}.sub{font-size:15px;fill:#64748b}.head{font-size:17px;font-weight:700;fill:#263b55}.label{font-size:15px;font-weight:600;fill:#263b55}.detail{font-size:13px;fill:#64748b}.tick{font-size:12px;fill:#748296}.value{font-size:16px;font-weight:700;fill:#263b55}.note{font-size:13px;fill:#64748b}</style>
+<rect x="0.0" y="0.0" width="1320.0" height="650.0" rx="20.0" fill="#f6f8fc"/>
 <text x="48.0" y="52.0" class="title" text-anchor="start">Качество сегментации по моделям</text>
-<text x="48.0" y="80.0" class="sub" text-anchor="start">Validation · порог 0,5 · чем выше, тем лучше</text>
-<rect x="30.0" y="107.0" width="1100.0" height="335.0" rx="16.0" fill="#ffffff"/>
-<text x="315.0" y="145.0" class="head" text-anchor="start">Foreground IoU</text>
-<line x1="315.0" y1="181.0" x2="315.0" y2="412.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="315.0" y="171.0" class="tick" text-anchor="middle">0,00</text>
-<line x1="428.3" y1="181.0" x2="428.3" y2="412.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="428.3" y="171.0" class="tick" text-anchor="middle">0,25</text>
-<line x1="541.7" y1="181.0" x2="541.7" y2="412.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="541.7" y="171.0" class="tick" text-anchor="middle">0,50</text>
-<line x1="655.0" y1="181.0" x2="655.0" y2="412.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="655.0" y="171.0" class="tick" text-anchor="middle">0,75</text>
-<rect x="315.0" y="204.0" width="152.3" height="28.0" rx="5.0" fill="#64748b"/>
-<text x="476.3" y="224.0" class="value" text-anchor="start">0,336</text>
-<rect x="315.0" y="286.0" width="184.9" height="28.0" rx="5.0" fill="#e27850"/>
-<text x="508.9" y="306.0" class="value" text-anchor="start">0,408</text>
-<rect x="315.0" y="368.0" width="226.3" height="28.0" rx="5.0" fill="#079785"/>
-<text x="550.3" y="388.0" class="value" text-anchor="start">0,499</text>
-<text x="739.0" y="145.0" class="head" text-anchor="start">Foreground Dice</text>
-<line x1="739.0" y1="181.0" x2="739.0" y2="412.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="739.0" y="171.0" class="tick" text-anchor="middle">0,00</text>
-<line x1="852.3" y1="181.0" x2="852.3" y2="412.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="852.3" y="171.0" class="tick" text-anchor="middle">0,25</text>
-<line x1="965.7" y1="181.0" x2="965.7" y2="412.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="965.7" y="171.0" class="tick" text-anchor="middle">0,50</text>
-<line x1="1079.0" y1="181.0" x2="1079.0" y2="412.0" stroke="#e1e7ef" stroke-width="1"/>
-<text x="1079.0" y="171.0" class="tick" text-anchor="middle">0,75</text>
-<rect x="739.0" y="204.0" width="228.0" height="28.0" rx="5.0" fill="#64748b"/>
-<text x="976.0" y="224.0" class="value" text-anchor="start">0,503</text>
-<rect x="739.0" y="286.0" width="262.7" height="28.0" rx="5.0" fill="#e27850"/>
-<text x="1010.7" y="306.0" class="value" text-anchor="start">0,579</text>
-<rect x="739.0" y="368.0" width="301.9" height="28.0" rx="5.0" fill="#079785"/>
-<text x="1049.9" y="388.0" class="value" text-anchor="start">0,666</text>
-<rect x="56.0" y="207.0" width="13.0" height="13.0" rx="3.0" fill="#64748b"/>
-<text x="79.0" y="220.0" class="label" text-anchor="start">U-Net · BCE</text>
-<line x1="53.0" y1="259.0" x2="1107.0" y2="259.0" stroke="#eff2f7" stroke-width="1"/>
-<rect x="56.0" y="289.0" width="13.0" height="13.0" rx="3.0" fill="#e27850"/>
-<text x="79.0" y="302.0" class="label" text-anchor="start">U-Net · BCE + Dice</text>
-<line x1="53.0" y1="341.0" x2="1107.0" y2="341.0" stroke="#eff2f7" stroke-width="1"/>
-<rect x="56.0" y="371.0" width="13.0" height="13.0" rx="3.0" fill="#079785"/>
-<text x="79.0" y="384.0" class="label" text-anchor="start">ResNet18 U-Net · BCE + Dice</text>
+<text x="48.0" y="80.0" class="sub" text-anchor="start">Validation · порог 0,5 · пиксельные метрики foreground</text>
+<rect x="30.0" y="105.0" width="1260.0" height="505.0" rx="16.0" fill="#ffffff"/>
+<text x="425.0" y="145.0" class="head" text-anchor="start">Foreground IoU</text>
+<text x="850.0" y="145.0" class="head" text-anchor="start">Foreground Dice</text>
+<line x1="425.0" y1="192.0" x2="425.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="425.0" y="180.0" class="tick" text-anchor="middle">0,0</text>
+<line x1="500.0" y1="192.0" x2="500.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="500.0" y="180.0" class="tick" text-anchor="middle">0,2</text>
+<line x1="575.0" y1="192.0" x2="575.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="575.0" y="180.0" class="tick" text-anchor="middle">0,4</text>
+<line x1="650.0" y1="192.0" x2="650.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="650.0" y="180.0" class="tick" text-anchor="middle">0,6</text>
+<line x1="725.0" y1="192.0" x2="725.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="725.0" y="180.0" class="tick" text-anchor="middle">0,8</text>
+<line x1="850.0" y1="192.0" x2="850.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="850.0" y="180.0" class="tick" text-anchor="middle">0,0</text>
+<line x1="925.0" y1="192.0" x2="925.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="925.0" y="180.0" class="tick" text-anchor="middle">0,2</text>
+<line x1="1000.0" y1="192.0" x2="1000.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="1000.0" y="180.0" class="tick" text-anchor="middle">0,4</text>
+<line x1="1075.0" y1="192.0" x2="1075.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="1075.0" y="180.0" class="tick" text-anchor="middle">0,6</text>
+<line x1="1150.0" y1="192.0" x2="1150.0" y2="580.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="1150.0" y="180.0" class="tick" text-anchor="middle">0,8</text>
+<rect x="425.0" y="213.0" width="126.0" height="26.0" rx="5.0" fill="#66758b"/>
+<text x="559.0" y="231.0" class="value" text-anchor="start">0,336</text>
+<rect x="850.0" y="213.0" width="188.6" height="26.0" rx="5.0" fill="#66758b"/>
+<text x="1046.6" y="231.0" class="value" text-anchor="start">0,503</text>
+<rect x="425.0" y="291.0" width="153.0" height="26.0" rx="5.0" fill="#d06b47"/>
+<text x="586.0" y="309.0" class="value" text-anchor="start">0,408</text>
+<rect x="850.0" y="291.0" width="217.3" height="26.0" rx="5.0" fill="#d06b47"/>
+<text x="1075.3" y="309.0" class="value" text-anchor="start">0,579</text>
+<rect x="425.0" y="369.0" width="187.2" height="26.0" rx="5.0" fill="#008c80"/>
+<text x="620.2" y="387.0" class="value" text-anchor="start">0,499</text>
+<rect x="850.0" y="369.0" width="249.7" height="26.0" rx="5.0" fill="#008c80"/>
+<text x="1107.7" y="387.0" class="value" text-anchor="start">0,666</text>
+<rect x="425.0" y="447.0" width="210.1" height="26.0" rx="5.0" fill="#426bca"/>
+<text x="643.1" y="465.0" class="value" text-anchor="start">0,560</text>
+<rect x="850.0" y="447.0" width="269.3" height="26.0" rx="5.0" fill="#426bca"/>
+<text x="1127.3" y="465.0" class="value" text-anchor="start">0,718</text>
+<rect x="425.0" y="525.0" width="231.5" height="26.0" rx="5.0" fill="#7b4bc2"/>
+<text x="664.5" y="543.0" class="value" text-anchor="start">0,617</text>
+<rect x="850.0" y="525.0" width="286.3" height="26.0" rx="5.0" fill="#7b4bc2"/>
+<text x="1144.3" y="543.0" class="value" text-anchor="start">0,763</text>
+<rect x="55.0" y="212.0" width="13.0" height="13.0" rx="3.0" fill="#66758b"/>
+<text x="80.0" y="224.0" class="label" text-anchor="start">U-Net</text>
+<text x="80.0" y="243.0" class="detail" text-anchor="start">BCE</text>
+<line x1="52.0" y1="265.0" x2="1268.0" y2="265.0" stroke="#edf1f6" stroke-width="1"/>
+<rect x="55.0" y="290.0" width="13.0" height="13.0" rx="3.0" fill="#d06b47"/>
+<text x="80.0" y="302.0" class="label" text-anchor="start">U-Net</text>
+<text x="80.0" y="321.0" class="detail" text-anchor="start">BCE + Dice</text>
+<line x1="52.0" y1="343.0" x2="1268.0" y2="343.0" stroke="#edf1f6" stroke-width="1"/>
+<rect x="55.0" y="368.0" width="13.0" height="13.0" rx="3.0" fill="#008c80"/>
+<text x="80.0" y="380.0" class="label" text-anchor="start">ResNet18 U-Net</text>
+<text x="80.0" y="399.0" class="detail" text-anchor="start">BCE + Dice · исходная</text>
+<line x1="52.0" y1="421.0" x2="1268.0" y2="421.0" stroke="#edf1f6" stroke-width="1"/>
+<rect x="55.0" y="446.0" width="13.0" height="13.0" rx="3.0" fill="#426bca"/>
+<text x="80.0" y="458.0" class="label" text-anchor="start">ResNet18 U-Net</text>
+<text x="80.0" y="477.0" class="detail" text-anchor="start">BCE + Dice · баланс 25%</text>
+<line x1="52.0" y1="499.0" x2="1268.0" y2="499.0" stroke="#edf1f6" stroke-width="1"/>
+<rect x="55.0" y="524.0" width="13.0" height="13.0" rx="3.0" fill="#7b4bc2"/>
+<text x="80.0" y="536.0" class="label" text-anchor="start">ResNet18 U-Net</text>
+<text x="80.0" y="555.0" class="detail" text-anchor="start">BCE + Dice · баланс 25%, LR 0,0001</text>
 </svg>
