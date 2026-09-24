@@ -1,0 +1,8 @@
+# The +cu128 PyTorch wheels require the official CUDA wheel index; see README.
+torch==2.9.0
+torchvision==0.24.0
+numpy==2.5.3
+Pillow==12.3.0
+PyYAML==6.0.3
+gradio==6.28.0
+tqdm==4.70.1

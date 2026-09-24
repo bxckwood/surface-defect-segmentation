@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="515" viewBox="0 0 1160 515" role="img" aria-labelledby="title desc">
+<title id="title">Ошибки на снимках validation</title>
+<desc id="desc">Доля чистых снимков с ложной тревогой и доля снимков с дефектом без пересечения масок, порог 0,5.</desc>
+<style>text{font-family:"Segoe UI",Arial,sans-serif} .title{font-size:27px;font-weight:700;fill:#14233a} .sub{font-size:15px;fill:#64748b} .head{font-size:17px;font-weight:700;fill:#263b55} .label{font-size:15px;font-weight:600;fill:#263b55} .tick{font-size:12px;fill:#748296} .value{font-size:16px;font-weight:700;fill:#263b55} .note{font-size:13px;fill:#64748b}</style>
+<rect width="1160" height="515" rx="20" fill="#f6f8fc"/>
+<text x="48.0" y="52.0" class="title" text-anchor="start">Ошибки на снимках validation</text>
+<text x="48.0" y="80.0" class="sub" text-anchor="start">Порог 0,5 · чем ниже, тем лучше</text>
+<rect x="30.0" y="106.0" width="1100.0" height="373.0" rx="16.0" fill="#ffffff"/>
+<text x="315.0" y="145.0" class="head" text-anchor="start">Ложные тревоги</text>
+<text x="315.0" y="167.0" class="note" text-anchor="start">417 чистых снимков</text>
+<line x1="315.0" y1="205.0" x2="315.0" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="315.0" y="195.0" class="tick" text-anchor="middle">0%</text>
+<line x1="418.3" y1="205.0" x2="418.3" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="418.3" y="195.0" class="tick" text-anchor="middle">10%</text>
+<line x1="521.7" y1="205.0" x2="521.7" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="521.7" y="195.0" class="tick" text-anchor="middle">20%</text>
+<line x1="625.0" y1="205.0" x2="625.0" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="625.0" y="195.0" class="tick" text-anchor="middle">30%</text>
+<rect x="315.0" y="230.0" width="27.3" height="28.0" rx="5.0" fill="#64748b"/>
+<text x="351.3" y="249.0" class="value" text-anchor="start">2,6%</text>
+<text x="351.3" y="266.0" class="tick" text-anchor="start">11/417</text>
+<rect x="315.0" y="309.0" width="195.8" height="28.0" rx="5.0" fill="#e27850"/>
+<text x="519.8" y="328.0" class="value" text-anchor="start">18,9%</text>
+<text x="519.8" y="345.0" class="tick" text-anchor="start">79/417</text>
+<rect x="315.0" y="388.0" width="143.7" height="28.0" rx="5.0" fill="#079785"/>
+<text x="467.7" y="407.0" class="value" text-anchor="start">13,9%</text>
+<text x="467.7" y="424.0" class="tick" text-anchor="start">58/417</text>
+<text x="739.0" y="145.0" class="head" text-anchor="start">Пропуски дефектов</text>
+<text x="739.0" y="167.0" class="note" text-anchor="start">49 снимков с дефектом</text>
+<line x1="739.0" y1="205.0" x2="739.0" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="739.0" y="195.0" class="tick" text-anchor="middle">0%</text>
+<line x1="842.3" y1="205.0" x2="842.3" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="842.3" y="195.0" class="tick" text-anchor="middle">10%</text>
+<line x1="945.7" y1="205.0" x2="945.7" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="945.7" y="195.0" class="tick" text-anchor="middle">20%</text>
+<line x1="1049.0" y1="205.0" x2="1049.0" y2="432.0" stroke="#e1e7ef" stroke-width="1"/>
+<text x="1049.0" y="195.0" class="tick" text-anchor="middle">30%</text>
+<rect x="739.0" y="230.0" width="274.1" height="28.0" rx="5.0" fill="#64748b"/>
+<text x="1022.1" y="249.0" class="value" text-anchor="start">26,5%</text>
+<text x="1022.1" y="266.0" class="tick" text-anchor="start">13/49</text>
+<rect x="739.0" y="309.0" width="84.4" height="28.0" rx="5.0" fill="#e27850"/>
+<text x="832.4" y="328.0" class="value" text-anchor="start">8,2%</text>
+<text x="832.4" y="345.0" class="tick" text-anchor="start">4/49</text>
+<rect x="739.0" y="388.0" width="63.3" height="28.0" rx="5.0" fill="#079785"/>
+<text x="811.3" y="407.0" class="value" text-anchor="start">6,1%</text>
+<text x="811.3" y="424.0" class="tick" text-anchor="start">3/49</text>
+<rect x="56.0" y="233.0" width="13.0" height="13.0" rx="3.0" fill="#64748b"/>
+<text x="79.0" y="246.0" class="label" text-anchor="start">U-Net · BCE</text>
+<line x1="53.0" y1="283.0" x2="1107.0" y2="283.0" stroke="#eff2f7" stroke-width="1"/>
+<rect x="56.0" y="312.0" width="13.0" height="13.0" rx="3.0" fill="#e27850"/>
+<text x="79.0" y="325.0" class="label" text-anchor="start">U-Net · BCE + Dice</text>
+<line x1="53.0" y1="362.0" x2="1107.0" y2="362.0" stroke="#eff2f7" stroke-width="1"/>
+<rect x="56.0" y="391.0" width="13.0" height="13.0" rx="3.0" fill="#079785"/>
+<text x="79.0" y="404.0" class="label" text-anchor="start">ResNet18 U-Net · BCE + Dice</text>
+</svg>

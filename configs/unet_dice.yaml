@@ -1,0 +1,13 @@
+seed: 42
+data_root: data/raw/KolektorSDD2
+split_dir: data/splits
+image_size: [640, 256]  # высота, ширина
+batch_size: 8
+epochs: 25
+learning_rate: 0.0003
+weight_decay: 0.0001
+device: auto
+model: unet
+loss: bce_dice
+pretrained: false
+output_dir: runs/unet_dice
